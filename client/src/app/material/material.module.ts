@@ -1,13 +1,25 @@
 import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 const MaterialComponents = [
 	MatButtonModule,
-	MatExpansionModule,
-	MatDividerModule
+	MatToolbarModule,
+	MatSidenavModule,
+	MatListModule,
+	MatIconModule,
+	MatFormFieldModule,
+	MatInputModule,
+	MatSnackBarModule,
+	MatCardModule
 ];
 
 @NgModule({

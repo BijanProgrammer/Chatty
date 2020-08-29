@@ -1,0 +1,21 @@
+mat-card {
+	margin: 3rem;
+	padding: 3rem;
+}
+
+mat-card-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+mat-form-field {
+	flex: 1 0 auto;
+
+	margin-right: 2rem;
+}
+
+mat-form-field:nth-last-child() {
+	margin-right: 0;
+}
