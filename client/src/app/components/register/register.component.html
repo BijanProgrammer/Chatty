@@ -5,19 +5,20 @@
   <mat-card-content>
     <mat-form-field appearance="legacy">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="Enter you username ...">
+      <input matInput [(ngModel)]="userData.username" type="text" name="username" placeholder="Enter you username ..."
+        required>
       <mat-icon matSuffix>perm_identity</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
       <mat-label>Email</mat-label>
-      <input matInput placeholder="Enter you email ...">
+      <input matInput [(ngModel)]="userData.email" type="email" name="email" placeholder="Enter you email ..." required>
       <mat-icon matSuffix>mail_outline</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
       <mat-label>Password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'">
+      <input matInput [(ngModel)]="userData.password" [type]="hide ? 'password' : 'text'" name="password" required>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -26,6 +27,6 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-flat-button color="primary">Register</button>
+    <button mat-flat-button color="primary" (click)="clickedOnRegisterButton($event)">Register</button>
   </mat-card-actions>
 </mat-card>

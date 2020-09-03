@@ -33,7 +33,7 @@ router.post('/login', (req, res) => {
 			if (user.password !== password)
 				res.status(401).send(`Password is incorrect.`);
 
-			res.status(200).send(req.body);
+			res.status(200).send(user);
 		}
 	});
 });

@@ -1,5 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { AuthService } from './services/auth.service';
 
 import { MaterialModule } from './material/material.module';
 
@@ -20,10 +24,12 @@ import { GlobalChatComponent } from './components/global-chat/global-chat.compon
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		HttpClientModule,
+		FormsModule,
 		BrowserAnimationsModule,
 		MaterialModule
 	],
-	providers: [],
+	providers: [ AuthService ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -9,7 +10,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit {
 	hide = true;
 
-	constructor(private _snackBar: MatSnackBar) {}
+	userData = {
+		username: '',
+		email: '',
+		password: ''
+	};
+
+	constructor(
+		private authService: AuthService,
+		private _snackBar: MatSnackBar
+	) {}
 
 	ngOnInit(): void {
 		this._snackBar.open(
@@ -17,5 +27,11 @@ export class RegisterComponent implements OnInit {
 			'OK!',
 			{ duration: 3000 }
 		);
+	}
+
+	clickedOnRegisterButton(e) {
+		this.authService
+			.registerUser(this.userData)
+			.subscribe((res) => console.log(res), (err) => console.log(err));
 	}
 }
