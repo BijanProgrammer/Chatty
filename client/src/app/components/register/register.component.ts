@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
 	};
 
 	constructor(
+		private router: Router,
 		private authService: AuthService,
 		private _snackBar: MatSnackBar
 	) {}
@@ -30,8 +32,14 @@ export class RegisterComponent implements OnInit {
 	}
 
 	clickedOnRegisterButton(e) {
-		this.authService
-			.registerUser(this.userData)
-			.subscribe((res) => console.log(res), (err) => console.log(err));
+		this.authService.registerUser(this.userData).subscribe(
+			(res) => {
+				localStorage.setItem('token', res.token);
+				this.router.navigate([ '/global-chat' ]);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
 	}
 }

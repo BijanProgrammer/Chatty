@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { AuthGuard } from './guards/auth.guard';
+
 import { AuthService } from './services/auth.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 import { GlobalChatService } from './services/global-chat.service';
 
 import { MaterialModule } from './material/material.module';
@@ -30,7 +33,16 @@ import { GlobalChatComponent } from './components/global-chat/global-chat.compon
 		BrowserAnimationsModule,
 		MaterialModule
 	],
-	providers: [ AuthService, GlobalChatService ],
+	providers: [
+		AuthGuard,
+		AuthService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptorService,
+			multi: true
+		},
+		GlobalChatService
+	],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}
