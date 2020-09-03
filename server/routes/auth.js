@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/', (req, res) => {
-	res.send('Auth working !');
+	return res.send('Auth working!');
 });
 
 router.post('/register', (req, res) => {
@@ -15,11 +15,14 @@ router.post('/register', (req, res) => {
 	user.save((err, registeredUser) => {
 		if (err) {
 			console.error(err);
+			return res
+				.status(500)
+				.send('An error has been occurred at server-side!');
 		} else {
 			let payload = { subject: registeredUser.username };
 			let token = jwt.sign(payload, 'secret');
 
-			res.status(200).send({ token });
+			return res.status(200).send({ token });
 		}
 	});
 });
@@ -30,19 +33,22 @@ router.post('/login', (req, res) => {
 	User.findOne({ username }, (err, user) => {
 		if (err) {
 			console.error(err);
+			return res
+				.status(500)
+				.send('An error has been occurred at server-side!');
 		} else if (!user) {
-			res
+			return res
 				.status(401)
 				.send(
-					`There is no user with username of '${username}' in the database.`
+					`There is no user with username of '${username}' in the database!`
 				);
 		} else if (user.password !== password) {
-			res.status(401).send(`Password is incorrect.`);
+			return res.status(401).send(`Password is incorrect!`);
 		} else {
 			let payload = { subject: registeredUser.username };
 			let token = jwt.sign(payload, 'secret');
 
-			res.status(200).send({ token });
+			return res.status(200).send({ token });
 		}
 	});
 });
