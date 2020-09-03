@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
+import { GlobalChatService } from './services/global-chat.service';
 
 import { MaterialModule } from './material/material.module';
 
@@ -29,7 +30,7 @@ import { GlobalChatComponent } from './components/global-chat/global-chat.compon
 		BrowserAnimationsModule,
 		MaterialModule
 	],
-	providers: [ AuthService ],
+	providers: [ AuthService, GlobalChatService ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}

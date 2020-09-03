@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 const User = require('../models/user');
@@ -12,8 +13,14 @@ router.post('/register', (req, res) => {
 	let user = new User(userData);
 
 	user.save((err, registeredUser) => {
-		if (err) console.error(err);
-		else res.status(200).send(registeredUser);
+		if (err) {
+			console.error(err);
+		} else {
+			let payload = { subject: registeredUser.username };
+			let token = jwt.sign(payload, 'secret');
+
+			res.status(200).send({ token });
+		}
 	});
 });
 
@@ -23,17 +30,19 @@ router.post('/login', (req, res) => {
 	User.findOne({ username }, (err, user) => {
 		if (err) {
 			console.error(err);
+		} else if (!user) {
+			res
+				.status(401)
+				.send(
+					`There is no user with username of '${username}' in the database.`
+				);
+		} else if (user.password !== password) {
+			res.status(401).send(`Password is incorrect.`);
 		} else {
-			if (!user)
-				res
-					.status(401)
-					.send(
-						`There is no user with username of '${username}' in the database.`
-					);
-			if (user.password !== password)
-				res.status(401).send(`Password is incorrect.`);
+			let payload = { subject: registeredUser.username };
+			let token = jwt.sign(payload, 'secret');
 
-			res.status(200).send(user);
+			res.status(200).send({ token });
 		}
 	});
 });

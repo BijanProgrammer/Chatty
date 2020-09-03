@@ -1,11 +1,13 @@
 mat-card {
-	margin: 3rem;
+	width: 25%;
+
+	margin: 3rem auto;
 	padding: 3rem;
 }
 
 mat-card-content {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -13,9 +15,5 @@ mat-card-content {
 mat-form-field {
 	flex: 1 0 auto;
 
-	margin-right: 2rem;
-}
-
-mat-form-field:nth-last-child() {
-	margin-right: 0;
+	width: 100%;
 }
