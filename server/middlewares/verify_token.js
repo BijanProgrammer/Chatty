@@ -19,7 +19,7 @@ const verifyToken = (req, res, next) => {
 
 	if (!payload) return res.status(401).send('Invalid token!');
 
-	req.username = payload.subject;
+	req.body.username = payload.subject;
 	next();
 };
 

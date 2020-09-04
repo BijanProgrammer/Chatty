@@ -18,7 +18,13 @@ router.get('/receive', verifyToken, (req, res) => {
 });
 
 router.post('/send', verifyToken, (req, res) => {
-	let message = new Message(req.body);
+	let message = new Message({
+		username : req.body.username,
+		text     : req.body.text
+	});
+
+	if (!message.username || !message.text)
+		return res.status(400).send('Please fill all fields!');
 
 	message.save((err, sentMessage) => {
 		if (err) console.error(err);
