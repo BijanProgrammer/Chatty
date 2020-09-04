@@ -2,6 +2,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
+const verifyToken = require('../middlewares/verify_token');
+
 const User = require('../models/user');
 
 router.get('/', (req, res) => {
@@ -45,12 +47,16 @@ router.post('/login', (req, res) => {
 		} else if (user.password !== password) {
 			return res.status(401).send(`Password is incorrect!`);
 		} else {
-			let payload = { subject: registeredUser.username };
+			let payload = { subject: user.username };
 			let token = jwt.sign(payload, 'secret');
 
 			return res.status(200).send({ token });
 		}
 	});
+});
+
+router.post('/verify', verifyToken, (req, res) => {
+	return res.status(200).send({ verified: true });
 });
 
 module.exports = router;

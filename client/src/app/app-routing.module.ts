@@ -15,7 +15,7 @@ const routes: Routes = [
 		component: GlobalChatComponent,
 		canActivate: [ AuthGuard ]
 	},
-	{ path: '', pathMatch: 'full', redirectTo: 'register' }
+	{ path: '', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 @NgModule({

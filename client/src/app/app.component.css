@@ -1,0 +1,17 @@
+h1 {
+	height: 40px;
+}
+
+.menu-spacer {
+	flex: 1 0 auto;
+}
+
+mat-toolbar-row a {
+	color: #aaaaaa;
+
+	margin: 0 0.1rem;
+}
+
+mat-toolbar-row a.active {
+	color: #ffffff;
+}

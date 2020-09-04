@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { GlobalChatService } from '../../services/global-chat.service';
 
 @Component({
@@ -9,14 +12,21 @@ import { GlobalChatService } from '../../services/global-chat.service';
 export class GlobalChatComponent implements OnInit {
 	messages = [];
 
-	constructor(private globalChatService: GlobalChatService) {}
+	constructor(
+		private router: Router,
+		private globalChatService: GlobalChatService
+	) {}
 
 	ngOnInit(): void {
-		this.globalChatService
-			.getMessages()
-			.subscribe(
-				(res) => (this.messages = res),
-				(err) => console.log(err)
-			);
+		this.globalChatService.getMessages().subscribe(
+			(res) => {
+				this.messages = res;
+			},
+			(err) => {
+				if (err instanceof HttpErrorResponse) {
+					if (err.status === 401) this.router.navigate([ '/login' ]);
+				}
+			}
+		);
 	}
 }

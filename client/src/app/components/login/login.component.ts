@@ -23,21 +23,21 @@ export class LoginComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this._snackBar.open(
-			'The login page has been reloaded successfully!',
-			'OK!',
-			{ duration: 3000 }
-		);
+		if (this.authService.loggedIn()) this.router.navigate([ '/global' ]);
 	}
 
 	clickedOnLoginButton(e) {
 		this.authService.loginUser(this.userData).subscribe(
 			(res) => {
 				localStorage.setItem('token', res.token);
-				this.router.navigate([ '/global-chat' ]);
+				this.router.navigate([ '/global' ]);
 			},
 			(err) => {
-				console.log(err);
+				this._snackBar.open(
+					'Invalid credentials, Please try again!',
+					'OK',
+					{ duration: 3000 }
+				);
 			}
 		);
 	}

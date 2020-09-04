@@ -24,21 +24,21 @@ export class RegisterComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this._snackBar.open(
-			'The register page has been reloaded successfully!',
-			'OK!',
-			{ duration: 3000 }
-		);
+		if (this.authService.loggedIn()) this.router.navigate([ '/global' ]);
 	}
 
 	clickedOnRegisterButton(e) {
 		this.authService.registerUser(this.userData).subscribe(
 			(res) => {
 				localStorage.setItem('token', res.token);
-				this.router.navigate([ '/global-chat' ]);
+				this.router.navigate([ '/global' ]);
 			},
 			(err) => {
-				console.log(err);
+				this._snackBar.open(
+					'Invalid credentials, Please try again!',
+					'OK',
+					{ duration: 3000 }
+				);
 			}
 		);
 	}
