@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environments/environment.prod';
+
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-	private registerUrl = 'http://localhost:5000/api/auth/register';
-	private loginUrl = 'http://localhost:5000/api/auth/login';
-	private verifyUrl = 'http://localhost:5000/api/auth/verify';
+	private registerUrl = environment.server.home + environment.server.register;
+	private loginUrl = environment.server.home + environment.server.login;
+	// private verifyUrl =environment.server.home + environment.server.verify;
 
 	private verified: boolean;
 
