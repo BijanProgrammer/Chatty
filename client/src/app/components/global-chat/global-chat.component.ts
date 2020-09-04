@@ -41,6 +41,7 @@ export class GlobalChatComponent implements OnInit {
 		this.globalChatService.sendMessage(this.messageData.text).subscribe(
 			(res) => {
 				this.updateMessages();
+				this.messageData.text = '';
 			},
 			(err) => {
 				this._snackBar.open(
