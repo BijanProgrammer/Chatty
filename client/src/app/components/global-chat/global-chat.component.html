@@ -1,1 +1,23 @@
-<p>global-chat works!</p>
+<div class="wrapper">
+  <mat-card>
+    <mat-card-title>Global Chat</mat-card-title>
+
+    <mat-card-content class="messages">
+      <div class="message" *ngFor="let msg of messages">
+        <span class="username">{{msg.username}}</span>
+        <span class="text">{{msg.text}}</span>
+        <span class="time">{{msg.createdAt.substring(11,19)}}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content class="new-message">
+      <mat-form-field appearance="legacy">
+        <input matInput [(ngModel)]="messageData.text" type="text" name="text"
+          placeholder="Enter anything you want and then press enter ..." required>
+        <mat-icon matSuffix color="primary" (click)="clickedOnSendButton($event)">send</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -14,7 +14,7 @@ export class GlobalChatService {
 		return this.http.get<any>(this.receiveUrl);
 	}
 
-	sendMessage(username, text) {
-		return this.http.post<any>(this.sendUrl, { username, text });
+	sendMessage(text) {
+		return this.http.post<any>(this.sendUrl, { text });
 	}
 }

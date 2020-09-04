@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { GlobalChatService } from '../../services/global-chat.service';
 
@@ -11,13 +12,19 @@ import { GlobalChatService } from '../../services/global-chat.service';
 })
 export class GlobalChatComponent implements OnInit {
 	messages = [];
+	messageData = { text: '' };
 
 	constructor(
 		private router: Router,
-		private globalChatService: GlobalChatService
+		private globalChatService: GlobalChatService,
+		private _snackBar: MatSnackBar
 	) {}
 
 	ngOnInit(): void {
+		this.updateMessages();
+	}
+
+	updateMessages() {
 		this.globalChatService.getMessages().subscribe(
 			(res) => {
 				this.messages = res;
@@ -26,6 +33,21 @@ export class GlobalChatComponent implements OnInit {
 				if (err instanceof HttpErrorResponse) {
 					if (err.status === 401) this.router.navigate([ '/login' ]);
 				}
+			}
+		);
+	}
+
+	clickedOnSendButton(e) {
+		this.globalChatService.sendMessage(this.messageData.text).subscribe(
+			(res) => {
+				this.updateMessages();
+			},
+			(err) => {
+				this._snackBar.open(
+					'There was a problem with your request, Please try again!',
+					'OK',
+					{ duration: 3000 }
+				);
 			}
 		);
 	}

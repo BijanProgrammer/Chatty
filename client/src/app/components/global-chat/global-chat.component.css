@@ -1,0 +1,76 @@
+.wrapper {
+	display: grid;
+	grid-template-columns: auto minmax(500px, 50%) auto;
+	/* prettier-ignore */
+	grid-template-areas: ". messages ."
+                       ". new-message .";
+	justify-items: center;
+	align-items: center;
+
+	width: 100%;
+}
+
+mat-card {
+	width: 100%;
+
+	margin: 3rem auto;
+	padding: 3rem;
+}
+
+mat-card:nth-child(1) {
+	grid-area: messages;
+}
+
+mat-card:nth-child(2) {
+	grid-area: new-message;
+}
+
+mat-card-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+
+	margin-top: 2rem;
+
+	font-size: 16px;
+}
+
+.message {
+	display: grid;
+	grid-template-areas: "username text time";
+	grid-template-columns: 3fr 10fr 1fr;
+
+	width: 100%;
+}
+
+.message .username {
+	grid-area: username;
+	align-self: start;
+
+	color: #bbbbbb;
+
+	padding-right: 1rem;
+
+	font-weight: 500;
+}
+
+.message .text {
+	grid-area: text;
+	align-self: start;
+}
+
+.message .time {
+	grid-area: time;
+	align-self: end;
+
+	color: #bbbbbb;
+}
+
+.new-message mat-form-field {
+	width: 100%;
+}
+
+.new-message mat-icon {
+	cursor: pointer;
+}
